@@ -1,0 +1,73 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+// Looking for ways to speed up your queries, or scale easily with your serverless or edge functions?
+// Try Prisma Accelerate: https://pris.ly/cli/accelerate-init
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "sqlite"
+  url      = env("DATABASE_URL")
+}
+
+model User {
+  id Int @id @default(autoincrement())
+  name String
+  surname String
+  birthdate DateTime
+  status Status
+  email String @unique
+  password String
+  username String
+}
+
+model Project {
+  id Int @id @default(autoincrement())
+  name String
+  image String
+  lightDescription String
+  detailedDescription String
+  technologies ProjectTechnology[]
+}
+
+model Course {
+  id Int @id @default(autoincrement())
+  title String
+  author String
+  description String
+  link String
+  duration Decimal
+  rating Decimal
+}
+
+model Certificate {
+  id Int @id @default(autoincrement())
+  title String
+  image String
+}
+
+model Technology {
+  id Int @id @default(autoincrement())
+  name String
+  logo String
+  documentation String
+  projects ProjectTechnology[]
+}
+
+model ProjectTechnology {
+  projectId Int
+  technologyId Int
+  project Project @relation(fields: [projectId], references: [id])
+  technology Technology @relation(fields: [technologyId], references: [id])
+
+  @@id([projectId, technologyId])
+}
+
+enum Status {
+  WORKING
+  FINDING_JOB
+  STUDYING
+}

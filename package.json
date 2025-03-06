@@ -1,8 +1,9 @@
 {
   "scripts": {
-    "dev": "concurrently \"npm run dev:backend\" \"npm run dev:frontend\"",
+    "dev": "concurrently \"npm run dev:backend\" \"npm run dev:frontend\" \"npm run dev:prisma\"",
     "dev:backend": "cd backend && npx nodemon src/index.ts",
-    "dev:frontend": "cd frontend && npm run dev"
+    "dev:frontend": "cd frontend && npm run dev",
+    "dev:prisma": "cd backend && npx prisma studio"
   },
   "devDependencies": {
     "concurrently": "^9.1.2"
