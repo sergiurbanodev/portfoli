@@ -10,5 +10,5 @@ export const technologySchema = z.object({
     .min(5, "Logo must be at least 5 characters long")
     .max(100, "Logo cannot surpass 100 characters long"),
   documentation: z.string().url("Documentation must be a valid URL"),
-  projectsIds: z.array(z.number().int().positive()),
+  projects: z.array(z.number().int().positive().optional()),
 });

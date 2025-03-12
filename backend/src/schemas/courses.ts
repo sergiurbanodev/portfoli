@@ -1,3 +1,4 @@
+import Decimal from "decimal.js";
 import { z } from "zod";
 
 export const courseSchema = z.object({
@@ -17,9 +18,15 @@ export const courseSchema = z.object({
     .min(5, "Image must be at least 5 characters long")
     .max(100, "Image cannot surpass 100 characters long"),
   link: z.string().url("URL must be valid"),
-  duration: z.number().positive("Duration must be a positive number"),
+  duration: z.instanceof(Decimal).refine(val => val instanceof Decimal, {
+    message: 'Invalid Decimal value'
+  }),
   rating: z
-    .number()
-    .positive("Rating must be a positive number")
-    .max(5, "Rating must not be greater than 5"),
+    .instanceof(Decimal)
+    .refine(val => val instanceof Decimal, {
+      message: 'Invalid Decimal value'
+    })
+    .refine(val => val.lessThanOrEqualTo(5), {
+      message: 'Rating must be less than or equal to 5'
+    })
 });
