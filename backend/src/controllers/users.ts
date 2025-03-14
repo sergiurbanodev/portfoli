@@ -3,7 +3,7 @@ import userService from "../services/users";
 import { ZodError } from "zod";
 
 class UserController {
-  async create(req: Request, res: Response): Promise<Response> {
+  async create(req: Request, res: Response): Promise<any> {
     try {
       const user = await userService.create(req.body)
       return res.status(201).json(user) 
@@ -22,7 +22,7 @@ class UserController {
     }
   }
 
-  async getAll(_req: Request, res: Response): Promise<Response> {
+  async getAll(_req: Request, res: Response): Promise<any> {
     try {
       const users = await userService.getAll();
       return res.json(users)
@@ -34,7 +34,7 @@ class UserController {
     }
   }
 
-  async getById(req: Request, res: Response): Promise<Response> {
+  async getById(req: Request, res: Response): Promise<any> {
     try {
       const { id } = req.params;
       const user = await userService.getById(Number.parseInt(id));
@@ -51,7 +51,7 @@ class UserController {
     }
   }
 
-  async update(req: Request, res: Response): Promise<Response> {
+  async update(req: Request, res: Response): Promise<any> {
     try {
       const { id } = req.params;
       const user = await userService.update(Number.parseInt(id),req.body);
@@ -75,7 +75,7 @@ class UserController {
     }
   }
 
-  async delete(req: Request, res: Response): Promise<Response> {
+  async delete(req: Request, res: Response): Promise<any> {
     try {
       const { id } = req.params;
       await userService.delete(Number.parseInt(id));
@@ -92,3 +92,5 @@ class UserController {
     }
   }
 }
+
+export default new UserController();

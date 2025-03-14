@@ -3,7 +3,7 @@ import technologyService from "../services/technologies";
 import { ZodError } from "zod";
 
 class TechnologyController {
-  async create(req: Request, res: Response): Promise<Response> {
+  async create(req: Request, res: Response): Promise<any> {
     try {
       const technology = await technologyService.create(req.body)
       return res.status(201).json(technology) 
@@ -22,7 +22,7 @@ class TechnologyController {
     }
   }
 
-  async getAll(_req: Request, res: Response): Promise<Response> {
+  async getAll(_req: Request, res: Response): Promise<any> {
     try {
       const technologies = await technologyService.getAll();
       return res.json(technologies)
@@ -34,7 +34,7 @@ class TechnologyController {
     }
   }
 
-  async getById(req: Request, res: Response): Promise<Response> {
+  async getById(req: Request, res: Response): Promise<any> {
     try {
       const { id } = req.params;
       const technology = await technologyService.getById(Number.parseInt(id));
@@ -51,7 +51,7 @@ class TechnologyController {
     }
   }
 
-  async update(req: Request, res: Response): Promise<Response> {
+  async update(req: Request, res: Response): Promise<any> {
     try {
       const { id } = req.params;
       const technology = await technologyService.update(Number.parseInt(id),req.body);
@@ -75,7 +75,7 @@ class TechnologyController {
     }
   }
 
-  async delete(req: Request, res: Response): Promise<Response> {
+  async delete(req: Request, res: Response): Promise<any> {
     try {
       const { id } = req.params;
       await technologyService.delete(Number.parseInt(id));
@@ -92,3 +92,5 @@ class TechnologyController {
     }
   }
 }
+
+export default new TechnologyController();

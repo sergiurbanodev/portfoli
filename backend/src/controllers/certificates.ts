@@ -3,7 +3,7 @@ import certificateService from "../services/certificates";
 import { ZodError } from "zod";
 
 class CertificateController {
-  async create(req: Request, res: Response): Promise<Response> {
+  async create(req: Request, res: Response): Promise<any> {
     try {
       const certificate = await certificateService.create(req.body)
       return res.status(201).json(certificate) 
@@ -22,10 +22,10 @@ class CertificateController {
     }
   }
 
-  async getAll(_req: Request, res: Response): Promise<Response> {
+  async getAll(_req: Request, res: Response): Promise<any> {
     try {
       const certificates = await certificateService.getAll();
-      return res.json(certificates)
+      return res.json(certificates);
     } catch (error) {
       return res.status(500).json({
         message: 'Internal Server Error',
@@ -34,7 +34,7 @@ class CertificateController {
     }
   }
 
-  async getById(req: Request, res: Response): Promise<Response> {
+  async getById(req: Request, res: Response): Promise<any> {
     try {
       const { id } = req.params;
       const certificate = await certificateService.getById(Number.parseInt(id));
@@ -51,7 +51,7 @@ class CertificateController {
     }
   }
 
-  async update(req: Request, res: Response): Promise<Response> {
+  async update(req: Request, res: Response): Promise<any> {
     try {
       const { id } = req.params;
       const certificate = await certificateService.update(Number.parseInt(id),req.body);
@@ -75,7 +75,7 @@ class CertificateController {
     }
   }
 
-  async delete(req: Request, res: Response): Promise<Response> {
+  async delete(req: Request, res: Response): Promise<any> {
     try {
       const { id } = req.params;
       await certificateService.delete(Number.parseInt(id));
@@ -92,3 +92,5 @@ class CertificateController {
     }
   }
 }
+
+export default new CertificateController();

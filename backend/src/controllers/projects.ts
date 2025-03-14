@@ -3,7 +3,7 @@ import projectService from "../services/projects";
 import { ZodError } from "zod";
 
 class ProjectController {
-  async create(req: Request, res: Response): Promise<Response> {
+  async create(req: Request, res: Response): Promise<any> {
     try {
       const project = await projectService.create(req.body)
       return res.status(201).json(project) 
@@ -22,7 +22,7 @@ class ProjectController {
     }
   }
 
-  async getAll(_req: Request, res: Response): Promise<Response> {
+  async getAll(_req: Request, res: Response): Promise<any> {
     try {
       const projects = await projectService.getAll();
       return res.json(projects)
@@ -34,7 +34,7 @@ class ProjectController {
     }
   }
 
-  async getById(req: Request, res: Response): Promise<Response> {
+  async getById(req: Request, res: Response): Promise<any> {
     try {
       const { id } = req.params;
       const project = await projectService.getById(Number.parseInt(id));
@@ -51,7 +51,7 @@ class ProjectController {
     }
   }
 
-  async update(req: Request, res: Response): Promise<Response> {
+  async update(req: Request, res: Response): Promise<any> {
     try {
       const { id } = req.params;
       const project = await projectService.update(Number.parseInt(id),req.body);
@@ -75,7 +75,7 @@ class ProjectController {
     }
   }
 
-  async delete(req: Request, res: Response): Promise<Response> {
+  async delete(req: Request, res: Response): Promise<any> {
     try {
       const { id } = req.params;
       await projectService.delete(Number.parseInt(id));
@@ -92,3 +92,5 @@ class ProjectController {
     }
   }
 }
+
+export default new ProjectController();
