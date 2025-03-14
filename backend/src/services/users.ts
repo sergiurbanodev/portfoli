@@ -1,7 +1,7 @@
 import { CreateUserDTO, UpdateUserDTO } from "../types/types";
 import prisma from "../config/prisma";
 import { User } from "@prisma/client";
-
+import { usersSchema } from "../schemas/users";
 
 class UserService {
   async getAll(): Promise<User[]> {
@@ -21,18 +21,19 @@ class UserService {
   }
 
   async create(data: CreateUserDTO): Promise<User> {
-    // const validatedData = usersSchema.parse(data);
+    const validatedData = usersSchema.parse(data);
 
     return prisma.user.create({
-      data
+      data: validatedData
     })
   }
 
   async update(id: number, data: UpdateUserDTO): Promise<User> {
+    const validatedData = usersSchema.partial().safeParse(data);
     try {
       return await prisma.user.update({
         where: {id},
-        data
+        data: validatedData
       })
     } catch (error) {
       throw new Error(`User with ID ${id} not found`)
